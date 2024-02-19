@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Predicción</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+   <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+
+    <style>
+
+        body{
+            font-family: "Roboto", sans-serif;
+        }
+        
+        h1, h3 {
+            color: #004E70;
+}
+        h1 {
+        margin: 10px; 
+        padding: 20px 20px;
+            }
+        h5 {
+    color: #676666;
+}
+.btn.btn-primary,
+.btn.btn-secondary {
+    color: #004E70;
+    font-weight: bold;
+    background-color: #ffffff;
+    border-color: #004E70;
+    border-width: medium;
+    margin: 10px; 
+    padding: 10px 20px;
+}
+        
+#predictionModal .modal-title {
+    color: #004E70;
+    font-weight: bold;
+  }
+
+  #predictionModal .modal-body {
+    color: #004E70;
+  }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+    <div class="container">
+        <h1 class="text-center">Predicción de riesgo de diabetes/prediabetes</h1><br><br>
+        <div class="d-flex justify-content-center">
+            <form id="miFormulario">
+                <!-- Datos Demográficos -->
+                <h3 class="text-justify"><i class="fa-solid fa-user"></i> Datos demográficos</h3>
+                <hr> <!-- linea-->
+                <h5 class="text-justify">Sexo</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Sex" id="femaleRadio" value="0">
+                    <label class="form-check-label" for="femaleRadio">Mujer</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Sex" id="maleRadio" value="1">
+                    <label class="form-check-label" for="maleRadio">Hombre</label>
+                </div><br><br>
+                
+                <h5 class="text-justify">Edad</h5>
+                <select class="form-select" id="Age" name="Age">
+                    <option value="" selected disabled>Seleccionar</option>
+                    <option value="1">18-24</option>
+                    <option value="2">25-29</option>
+                    <option value="3">30-34</option>
+                    <option value="4">35-39</option>
+                    <option value="5">40-44</option>
+                    <option value="6">45-49</option>
+                    <option value="7">50-54</option>
+                    <option value="8">55-59</option>
+                    <option value="9">60-64</option>
+                    <option value="10">65-69</option>
+                    <option value="11">70-74</option>
+                    <option value="12">75-79</option>
+                    <option value="13">80 a más</option>
+                </select><br><br>
+
+                <h5 class="text-justify">Nivel educativo</h5>
+                <select class="form-select" id="Education" name="Education">
+                     <option value="" selected disabled>Seleccionar</option>
+                     <option value="1">Nunca asistió a la escuela o solo jardín de infantes</option>
+                     <option value="2">Grados 1 al 8 (Primaria)</option>
+                     <option value="3">Grados 9 al 11 (Algunos años de secundaria)</option>
+                     <option value="4">Grado 12 o GED (Graduado de secundaria)</option>
+                     <option value="5">Universidad 1 a 3 años (Algunos años de universidad o escuela técnica)</option>
+                     <option value="6">Universidad 4 años o más (Graduado universitario)</option>
+                 </select><br><br>
+                
+                <h5 class="text-justify">Ingresos anuales</h5>
+                <select class="form-select" id="Income" name="Income">
+                       <option value="" selected disabled>Seleccionar</option>
+                       <option value="1">Menos de $10,000</option>
+                       <option value="2">Menos de $15,000</option>
+                       <option value="3">Menos de $20,000</option>
+                       <option value="4">Menos de $25,000</option>
+                       <option value="5">Menos de $35,000</option>
+                       <option value="6">Menos de $50,000</option>
+                       <option value="7">Menos de $75,000</option>
+                       <option value="8">$75,000 o más</option>
+                       </select><br><br> 
+
+                <!-- Estilo de Vida -->
+                <h3 class="text-justify"><i class="fa-solid fa-person-walking"></i> Estilo de vida</h3>
+                <hr> <!-- linea -->
+                <h5 class="text-justify">Ha realizado actividad física en los últimos 30 días, excluyendo el trabajo</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PhysActivity" id="noRadio" value="0">
+                    <label class="form-check-label" for="noRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PhysActivity" id="yesRadio" value="1">
+                    <label class="form-check-label" for="yesRadio">Si</label>
+                </div><br><br>
+                
+                <h5 class="text-justify">¿Consume verduras 1 o más veces al día?</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Veggies" id="vnoRadio" value="0">
+                    <label class="form-check-label" for="vnoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Veggies" id="vyesRadio" value="1">
+                    <label class="form-check-label" for="vyesRadio">Si</label>
+                </div><br><br>
+                
+                <h5 class="text-justify">¿Consume alcohol en exceso? (Exceso hombres: más de 14 bebidas, mujeres: más de 7 bebidas, semanalmente)</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HvyAlcoholConsump" id="hnoRadio" value="0">
+                    <label class="form-check-label" for="hnoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HvyAlcoholConsump" id="hyesRadio" value="1">
+                    <label class="form-check-label" for="hyesRadio">Si</label>
+                </div><br><br>
+
+                <!--Condiciones de Salud -->
+                <h3 class="text-justify"><i class="fa-solid fa-heart-pulse"></i> Condiciones de salud</h3>
+                <hr> <!-- linea -->
+                <h5 class="text-justify">Ingrese su Índice de Masa Corporal (BMI):</h5>
+                <input type="number" step="0.1" id="BMI" name="BMI" class="form-control" min="1" required><br><br>
+                
+                <h5 class="text-justify">¿Un profesional de la salud le ha diagnosticado presión arterial alta?</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HighBP" id="hbnoRadio" value="0">
+                    <label class="form-check-label" for="hbnoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HighBP" id="hbyesRadio" value="1">
+                    <label class="form-check-label" for="hbyesRadio">Si</label>
+                </div><br><br>
+                
+                
+                <h5 class="text-justify">¿Alguna vez un médico, enfermero u otro profesional de la salud le ha informado que su colesterol en la sangre está alto?</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HighChol" id="hchnoRadio" value="0">
+                    <label class="form-check-label" for="hchnoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HighChol" id="hchyesRadio" value="1">
+                    <label class="form-check-label" for="hchyesRadio">Si</label>
+                </div><br><br>
+                
+                
+                <h5 class="text-justify">¿Se ha evaluado del colesterol en los últimos cinco años?</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="CholCheck" id="cholchknoRadio" value="0">
+                    <label class="form-check-label" for="cholchknoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="CholCheck" id="cholchkyesRadio" value="1">
+                    <label class="form-check-label" for="cholchkyesRadio">Si</label>
+                </div><br><br>
+                
+                
+                
+                 <h5 class="text-justify">¿Alguna vez le dijeron o tuvo un derrame cerebral?</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Stroke" id="strnoRadio" value="0">
+                    <label class="form-check-label" for="strnoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Stroke" id="stryesRadio" value="1">
+                    <label class="form-check-label" for="stryesRadio">Si</label>
+                </div><br><br>
+                
+                
+                
+                 <h5 class="text-justify">Presenta Enfermedad coronaria (CHD) o tuvo un infarto de miocardio (MI)</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HeartDiseaseorAttack" id="heartnoRadio" value="0">
+                    <label class="form-check-label" for="heartnoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="HeartDiseaseorAttack" id="heartyesRadio" value="1">
+                    <label class="form-check-label" for="heartyesRadio">Si</label>
+                </div><br><br>
+                
+                 <h5 class="text-justify">¿Tiene dificultades graves para caminar o subir escaleras?</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="DiffWalk" id="difnoRadio" value="0">
+                    <label class="form-check-label" for="difnoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="DiffWalk" id="difyesRadio" value="1">
+                    <label class="form-check-label" for="difyesRadio">Si</label>
+                </div><br><br>
+                
+
+                <!--Atención Médica -->
+                <h3 class="text-justify"><i class="fa-solid fa-hospital"></i> Atención médica</h3>
+                <hr> <!-- linea -->
+                
+                <h5 class="text-justify">¿Tiene algún tipo de cobertura de atención médica?</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="AnyHealthcare" id="anyhenoRadio" value="0">
+                    <label class="form-check-label" for="anyhenoRadio">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="AnyHealthcare" id="anyheyesRadio" value="1">
+                    <label class="form-check-label" for="anyheyesRadio">Si</label>
+                </div><br><br>
+
+                <!-- Percepciones sobre su salud -->
+                <h3 class="text-justify"><i class="fa-solid fa-face-smile"></i> Percepciones sobre su salud</h3>
+                <hr> <!-- linea -->
+                
+                <h5 class="text-justify">Diría que en general su salud es:</h5>
+                <select class="form-select" id="GenHlth" name="GenHlth">
+                       <option value="" selected disabled>Seleccionar</option>
+                       <option value="1">Excelente</option>
+                       <option value="2">Muy Buena</option>
+                       <option value="3">Buena</option>
+                       <option value="4">Regular</option>
+                       <option value="5">Mala</option>  
+                       </select><br><br>  
+
+        <!-- Tus botones dentro del formulario -->
+        <div class="d-flex justify-content-center mt-3">
+            <button type="button" class="btn btn-primary me-2" onclick="enviarFormulario()">Realizar predicción</button>
+            <button type="button" class="btn btn-secondary" onclick="limpiarSeleccion()">Limpiar</button>
+        </div>
+    </form>
+               
+        </div>
+        
+        <!-- Footer con disclaimer fuera del formulario pero dentro del contenedor -->
+    <footer class="mt-5">
+        <p class="text-muted text-justify">Disclaimer: Esta aplicación web es parte de un entregable del Trabajo de Fin de Máster en Big Data and Business Analytics. No debe utilizarse como herramienta de evaluación para determinar su riesgo de desarrollar diabetes/prediabetes. Tiene como único fin el educativo. CONSULTE CON UN PROFESIONAL DE LA SALUD PARA DESCARTAR O TRATAR EL DESARROLLO DE ESTA CONDICIÓN.</p>
+    </footer>
+</div>
+
+        <!-- Modal -->
+<div class="modal fade" id="predictionModal" tabindex="-1" aria-labelledby="predictionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="predictionModalLabel">Resultado de la predicción</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="predictionModalBody"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    
+    <script>
+    function enviarFormulario() {
+        var formData = $("#miFormulario").serializeArray();
+        var jsonData = {};
+        $.each(formData, function (index, field) {
+            jsonData[field.name] = field.value;
+        });
+        console.log("Datos enviados:", jsonData);
+
+        // solicitud ajax
+        $.ajax({
+            type: "POST",
+            url: "https://18.191.148.32/predict",
+            data: JSON.stringify(jsonData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (data) {
+
+                console.log("Éxito:", data);
+                var prediction = data.prediction[0];
+                var predictionText = prediction === 1 ? "Usted tiene riesgo de desarrollar diabetes/prediabetes. Consulte con su médico acerca de las pruebas que debe realizarse y las intervenciones a seguir." : "Usted no presenta riesgo de desarrollar diabetes/prediabetes. Sin embargo, no deje de lado realizarse chequeos periódicos y mantener un estilo de vida saludable.";
+                // Texto en el modal
+                $("#predictionModalBody").text(predictionText);
+                $('#predictionModal').modal('show');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Error:", textStatus, errorThrown);
+            }
+        });
+    }
+  
+  </script>
+  
+    <script>
+  // Funcion boton limpiar
+  function limpiarSeleccion() {
+    $("#miFormulario")[0].reset();
+}
+    
+    </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
